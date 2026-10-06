@@ -26,6 +26,11 @@ table Construction
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	measure 'Schedule Performance Index' = DIVIDE([Total Budget],[Total Actual Cost])
+		lineageTag: 222ccfc5-cda7-4672-893f-a72b80951d98
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	column Date
 		dataType: dateTime
 		formatString: Long Date
