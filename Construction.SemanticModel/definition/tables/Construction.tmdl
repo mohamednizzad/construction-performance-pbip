@@ -19,6 +19,12 @@ table Construction
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Cost Variance Percentage' = DIVIDE([Cost Variance],[Total Budget])
+		lineageTag: b29d0f54-4f1a-4f8c-b389-4a32d0970e76
+
+	measure 'Cost Performance Index' = DIVIDE([Total Budget],[Total Actual Cost])
+		lineageTag: e5cae6ff-8f92-4dd8-9dc5-19ee39a0d6ea
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column Date
 		dataType: dateTime
