@@ -1,0 +1,86 @@
+table Construction
+	lineageTag: c2e030e1-9c67-4ff8-ac34-53fa19f56fb1
+
+	measure 'Total Budget' = SUM(Construction[Budget])
+		formatString: 0
+		lineageTag: e5e90e8c-5de2-4b9c-9566-5582c1054c54
+
+	measure 'Total Actual Cost' = SUM(Construction[Actual])
+		formatString: 0
+		lineageTag: afb75d2d-8565-4777-940f-a187eca80b26
+
+	measure 'Cost Variance' = [Total Actual Cost] - [Total Budget]
+		formatString: 0
+		lineageTag: 73677621-c229-4e3d-851f-085849adbe27
+
+	measure 'Cost Variance %' = DIVIDE([Cost Variance],[Total Budget])
+		lineageTag: ee299a16-2ef7-495d-a56b-fd30e1cb5039
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Cost Variance Percentage' = DIVIDE([Cost Variance],[Total Budget])
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: b0ad96f7-cfba-469c-9c9c-0f166e4d2ccd
+		summarizeBy: none
+		sourceColumn: Date
+
+		variation Variation
+			isDefault
+			relationship: 4195592a-4ac9-4eea-958e-0eb105a2bd4b
+			defaultHierarchy: LocalDateTable_e63c65e4-10a9-472e-b699-9bb9e88a866f.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Project
+		dataType: string
+		lineageTag: 486099a7-9bc3-4e60-95b6-da1aac56f394
+		summarizeBy: none
+		sourceColumn: Project
+
+		annotation SummarizationSetBy = Automatic
+
+	column Phase
+		dataType: string
+		lineageTag: 65f2f5d5-3738-4a06-9c7f-c59310a1642f
+		summarizeBy: none
+		sourceColumn: Phase
+
+		annotation SummarizationSetBy = Automatic
+
+	column Budget
+		dataType: int64
+		formatString: 0
+		lineageTag: ed5953c1-6be0-4eb1-9d28-359a7e3f46ff
+		summarizeBy: sum
+		sourceColumn: Budget
+
+		annotation SummarizationSetBy = Automatic
+
+	column Actual
+		dataType: int64
+		formatString: 0
+		lineageTag: 6cf8ac77-1ca6-4ae8-bbc3-856bdede55ab
+		summarizeBy: sum
+		sourceColumn: Actual
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Construction = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\Mohamed Nizzad\Downloads\Construction_PBIP_Demo_Data.csv"),[Delimiter=",", Columns=5, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Date", type date}, {"Project", type text}, {"Phase", type text}, {"Budget", Int64.Type}, {"Actual", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

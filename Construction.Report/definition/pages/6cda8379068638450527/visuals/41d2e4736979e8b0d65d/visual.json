@@ -1,0 +1,77 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
+  "name": "41d2e4736979e8b0d65d",
+  "position": {
+    "x": 1094.224924012158,
+    "y": 481.45896656534956,
+    "z": 2003,
+    "height": 598.17629179331311,
+    "width": 767.41641337386022,
+    "tabOrder": 2003
+  },
+  "visual": {
+    "visualType": "slicer",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Construction"
+                    }
+                  },
+                  "Property": "Project"
+                }
+              },
+              "queryRef": "Construction.Project",
+              "nativeQueryRef": "Project",
+              "active": true
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "data": [
+        {
+          "properties": {
+            "mode": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Basic'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "general": [
+        {
+          "properties": {}
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "06bed1c0d8fe81f6c445",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Construction"
+              }
+            },
+            "Property": "Project"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
+}
